@@ -18,6 +18,15 @@ $normal = "hover:bg-gray-100";
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <script type="text/javascript" src="./js/validation.js"></script>
+    <style>
+        .error {
+            border-color: #dc3545;
+            width: 100%;
+            margin-top: 0.25rem;
+            font-size: 80%;
+            color: #dc3545;
+        }
+    </style>
 </head>
 
 <body class="bg-gray-100">
