@@ -56,7 +56,18 @@ class Categoria
 		}
 	}
 
-
+	public function getCategorias()
+	{
+		$enumerado = [];
+		$q = $this->con->query("SELECT categoria, idcategorias FROM categorias  order by categoria asc  ");
+		if ($q->num_rows > 0) {
+			while ($row = $q->fetch_assoc()) {
+				$enumerado[] = $row;
+			}
+			$_DATA['enumerado'] = $enumerado;
+		}
+		return ['status' => 202, 'message' => $_DATA];
+	}
 	
 }
 
@@ -80,5 +91,9 @@ if (isset($_POST['eliminar_registro'])) {
 	}
 }
 
-
+if (isset($_POST['GET_CATEGORIAS'])) {
+	$p = new Categoria();
+	echo json_encode($p->getCategorias());
+	exit();
+}
 
