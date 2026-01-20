@@ -126,7 +126,22 @@
     </div>
 </div>
 
-
+<!-- Modal backdrop -->
+<div id="deleteModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+    <!-- Modal content -->
+    <form name="delete_registro_form" id="delete_registro_form">
+        <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
+            <h2 class="text-lg font-semibold text-gray-800 mb-4">¿Estás seguro que deseas eliminar este registro?</h2>
+            <p class="text-sm text-gray-600 mb-6">Esta acción no se puede deshacer.</p>
+            <input type="hidden" name="cid" id="cid">
+            <input type="hidden" name="eliminar_registro" value="1">
+            <div class="flex justify-end space-x-3">
+                <button type="button" onclick="cancelarEliminar()" class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded">Cancelar</button>
+                <button class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded delete-registro-btn">Eliminar</button>
+            </div>
+        </div>
+    </form>
+</div>
 
 <?php include_once("template/pie.php"); ?>
 <script type="text/javascript" src="./js/categoria.js"></script>

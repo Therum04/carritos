@@ -41,11 +41,11 @@ class Categoria
 	}
 
 
-	public function deleteAlmacen($cid = null)
+	public function deleteRegistro($cid = null)
 	{
 		if ($cid != null) {
 
-			$q = $this->con->query("DELETE FROM almacen WHERE idalmacen = '$cid'")  or die($this->con->error);
+			$q = $this->con->query("DELETE FROM categorias WHERE idcategorias = '$cid'")  or die($this->con->error);
 			if ($q) {
 				return ['status' => 202, 'message' => 'El registro se elimino correctamente'];
 			} else {
@@ -69,10 +69,10 @@ if (isset($_POST['add_update'])) {
 
 
 
-if (isset($_POST['delete_almacen'])) {
+if (isset($_POST['eliminar_registro'])) {
 	if (!empty($_POST['cid'])) {
 		$p = new Categoria();
-		echo json_encode($p->deleteAlmacen($_POST['cid']));
+		echo json_encode($p->deleteRegistro($_POST['cid']));
 		exit();
 	} else {
 		echo json_encode(['status' => 303, 'message' => 'ID de categoria inválido']);

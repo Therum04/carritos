@@ -25,6 +25,9 @@ function abrirCategoria() {
 function cerrarCategoriaModal() {
 	document.getElementById('categoriaModal').classList.add('hidden');
 }
+function cancelarEliminar() {
+	document.getElementById('deleteModal').classList.add('hidden');
+}
 $(document).ready(function () {
 	// Renderiza la tabla
 
@@ -62,34 +65,27 @@ $(document).ready(function () {
 		document.getElementById('categoriaModal').classList.remove('hidden');
 	});
 
-	$(document.body).on('click', '.delete-almacen', function () {
+	$(document.body).on('click', '.delete-registro', function () {
 		var cid = $(this).data('cid');
 		$("input[name='cid']").val(cid);
-		$("#deleteAlmacenModals").modal('show');
+		document.getElementById('deleteModal').classList.remove('hidden');
 	});
 
-	$(".delete-almacen-btn").on('click', function () {
+	$(".delete-registro-btn").on('click', function (e) {
+		e.preventDefault(); 
 		$.ajax({
-			url: '../admin/classes/Almacen.php',
+			url: '../admin/classes/Categoria.php',
 			method: 'POST',
-			data: $("#delete_almacen_form").serialize(),
+			data: $("#delete_registro_form").serialize(),
 			success: function (response) {
 				var resp = $.parseJSON(response);
 				if (resp.status == 202) {
-					$("#message").html(`<div class="alert alert-info alert-dismissible">
-							<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-							`+ resp.message + `
-						</div>`
-					);
+					toastr.success(resp.message);
 					load(1);
 				} else if (resp.status == 303) {
-					$("#message").html(`<div class="alert alert-info alert-dismissible">
-							<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-							`+ resp.message + `
-						</div>`
-					);
+					toastr.error(resp.message);
 				}
-				$("#deleteAlmacenModals").modal('hide');
+				cancelarEliminar();
 
 			}
 		});
