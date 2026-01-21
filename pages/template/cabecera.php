@@ -62,7 +62,7 @@ $normal = "hover:bg-gray-100";
                     <a href="producto.php"
                         class="flex items-center gap-3 p-3 rounded-lg
                     <?= $pagina == 'producto.php' ? $active : $normal ?>">
-                        🛒 Productos
+                        <i class="fa fa-tags"></i> Productos
                     </a>
 
                     <a href="categoria.php"
@@ -81,6 +81,11 @@ $normal = "hover:bg-gray-100";
                         class="flex items-center gap-3 p-3 rounded-lg
                     <?= $pagina == 'perfil.php' ? $active : $normal ?>">
                         👤 Perfil
+                    </a>
+                    <a href="carrito.php"
+                        class="flex items-center gap-3 p-3 rounded-lg
+                    <?= $pagina == 'carrito.php' ? $active : $normal ?>">
+                        🛒 Carrito
                     </a>
                 </nav>
             </div>
