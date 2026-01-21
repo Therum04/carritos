@@ -54,6 +54,11 @@ $normal = "hover:bg-gray-100";
 
                 <!-- MENU -->
                 <nav class="space-y-3 mt-6">
+                    <a href="presentacion.php"
+                        class="flex items-center gap-3 p-3 rounded-lg
+                    <?= $pagina == 'presentacion.php' ? $active : $normal ?>">
+                        🏠 Inicio
+                    </a>
                     <a href="producto.php"
                         class="flex items-center gap-3 p-3 rounded-lg
                     <?= $pagina == 'producto.php' ? $active : $normal ?>">
