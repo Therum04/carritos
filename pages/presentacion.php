@@ -1,13 +1,18 @@
 <?php include_once("template/cabecera.php"); ?>
-
-
+<main class="flex-1 p-8 w-full">
+  <!-- HEADER -->
+    <div class="flex items-center justify-between mb-4 md:hidden">
+        <button onclick="toggleMenu()" class="text-2xl">☰</button>
+        <span class="font-semibold">Principal</span>
+    </div>
 <!-- ===== BANNER SLIDER ===== -->
 <section class="w-full bg-white py-4">
+ 
   <div class="relative max-w-7xl mx-auto overflow-hidden">
 
     <!-- TRACK -->
     <div id="promoTrack"
-         class="flex transition-transform duration-500 ease-out">
+      class="flex transition-transform duration-500 ease-out">
 
       <?php
       $banners = [
@@ -53,9 +58,15 @@
     </div>
 
   </div>
+  <br>
+  <div class="col-md-12">
+    <div id="loader"></div><!-- Carga de datos ajax aqui -->
+    <div id="resultados"></div><!-- Carga de datos ajax aqui -->
+    <div class='outer_div'></div><!-- Carga de datos ajax aqui -->
+  </div>
 </section>
 
-
+</main>
 <!-- ===== JS SLIDER ===== -->
 <script>
   const track = document.getElementById('promoTrack');
@@ -127,3 +138,4 @@
 
 
 <?php include_once("template/pie.php"); ?>
+<script type="text/javascript" src="./js/presentacion.js"></script>

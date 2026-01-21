@@ -44,10 +44,10 @@ $normal = "hover:bg-gray-100";
                 <!-- LOGO -->
                 <div class="flex items-center gap-3 mb-8">
                     <div class="w-10 h-10 bg-teal-500 text-white flex items-center justify-center rounded-full font-bold">
-                        AL
+                        ES
                     </div>
                     <div>
-                        <p class="font-semibold">ALEX MARKET</p>
+                        <p class="font-semibold">CARRITO DE COMPRAS</p>
                         <span class="text-sm text-gray-500">Dashboard</span>
                     </div>
                 </div>
