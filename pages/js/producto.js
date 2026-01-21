@@ -132,6 +132,27 @@ function clearPrincipal() {
 	document.getElementById('txtPrincipal').classList.add('hidden');
 	document.getElementById('btnQuitarPrincipal').classList.add('hidden');
 }
+let thumbIndex = 0;
+const visibleThumbs = 10;
+
+function scrollThumbs(dir) {
+	const thumbs = document.querySelectorAll('#thumbs .thumb');
+	const total = thumbs.length;
+
+	thumbIndex += dir;
+
+	if (thumbIndex < 0) thumbIndex = 0;
+	if (thumbIndex > total - visibleThumbs) {
+		thumbIndex = total - visibleThumbs;
+	}
+
+	const offset = thumbIndex * 72; // 64px + gap
+	document.getElementById('thumbs').style.transform =
+		`translateX(-${offset}px)`;
+}
+function changeMainImg(img) {
+	$('#mainImg').attr('src', '../img/' + img);
+}
 $(document).ready(function () {
 	// Renderiza la tabla
 
@@ -205,8 +226,33 @@ $(document).ready(function () {
 	});
 	$(document.body).on('click', '.ver-detalle', function () {
 		var cid = $(this).data('cid');
-		$("input[name='cid']").val(cid);
-		openModalDetalle();
+		$.ajax({
+			url: '../pages/producto_detalle.php',
+			type: 'POST',
+			data: { idproducto: cid },
+			dataType: 'json',
+			success: function (res) {
+				// TEXTO
+				$('#productoModal h2').text(res.nombre);
+				$('#productoModal .precio').text('S/. ' + res.precio);
+				$('#productoModal .precio_old').text('S/. ' + res.precio_oferta);
+				$('#productoModal .descripcion').text(res.descripcion);
+				// IMAGEN PRINCIPAL
+				$('#mainImg').attr('src', '../img/' + res.imagen_principal);
+				// GALERÍA
+				let thumbs = '';
+				res.galeria.forEach(img => {
+					thumbs += `
+      <div class="thumb">
+        <img src="../img/${img}" onclick="changeMainImg('../img/${img}')">
+      </div>
+    `;
+				});
+				$('#thumbs').html(thumbs);
+
+				openModalDetalle();
+			}
+		});
 	});
 
 	$(".delete-registro-btn").on('click', function (e) {

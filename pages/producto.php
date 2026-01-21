@@ -1,5 +1,18 @@
 <?php include_once("template/cabecera.php"); ?>
-
+<style>
+.thumb {
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+}
+.thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0.75rem;
+  cursor: pointer;
+}
+</style>
 <main class="flex-1 p-8 w-full">
 
   <!-- HEADER -->
@@ -229,7 +242,7 @@
 <div id="productoModal"
   class="fixed inset-0 bg-black/60 flex items-center justify-center z-50 hidden">
 
-  <div class="bg-white rounded-2xl w-full max-w-5xl mx-4 relative">
+  <div class="bg-white rounded-2xl w-full max-w-5xl mx-4 relative shadow-xl">
 
     <!-- Cerrar -->
     <button onclick="closeModalDetalle()"
@@ -244,12 +257,8 @@
 
         <!-- Imagen principal -->
         <div class="bg-gray-50 rounded-xl p-4 relative">
-          <span class="absolute top-2 right-2 bg-yellow-200 text-xs font-semibold px-2 py-1 rounded-full">
-            -48%
-          </span>
-
           <img id="mainImg"
-            src="../img/696fb9b8a7122.jpeg"
+            src=""
             class="mx-auto max-h-80 object-contain rounded-xl transition-all">
         </div>
 
@@ -257,50 +266,20 @@
         <div class="flex items-center gap-2 mt-4">
 
           <!-- Flecha izquierda -->
-          <button onclick="scrollThumbs(-120)"
+          <button onclick="scrollThumbs(-1)"
             class="w-8 h-8 rounded-full border flex items-center justify-center hover:bg-gray-100">
             ‹
           </button>
 
           <!-- Carrusel -->
           <div id="thumbs"
-            class="flex gap-2 overflow-x-auto scrollbar-hide scroll-smooth">
+            class="flex gap-2 overflow-hidden w-[144px]"> <!-- 2 imágenes -->
 
-            <!-- Item -->
-            <div class="thumb active">
-              <img src="../img/696fc74b0fa27.webp">
-            </div>
-            <div class="thumb">
-              <img src="../img/gal_696fd4609ae47.webp">
-            </div>
-            <div class="thumb">
-              <img src="../img/gal_696fd54469052.webp">
-            </div>
-            <div class="thumb">
-              <img src="../img/gal_696fd5218e8f4.webp">
-            </div>
-            <div class="thumb">
-              <img src="../img/696fb9b8a7122.jpeg">
-            </div>
-            <div class="thumb active">
-              <img src="../img/696fc74b0fa27.webp">
-            </div>
-            <div class="thumb">
-              <img src="../img/gal_696fd4609ae47.webp">
-            </div>
-            <div class="thumb">
-              <img src="../img/gal_696fd54469052.webp">
-            </div>
-            <div class="thumb">
-              <img src="../img/gal_696fd5218e8f4.webp">
-            </div>
-            <div class="thumb">
-              <img src="../img/696fb9b8a7122.jpeg">
-            </div>
+            <!-- Se cargan por AJAX -->
           </div>
 
           <!-- Flecha derecha -->
-          <button onclick="scrollThumbs(120)"
+          <button onclick="scrollThumbs(1)"
             class="w-8 h-8 rounded-full border flex items-center justify-center hover:bg-gray-100">
             ›
           </button>
@@ -311,31 +290,22 @@
       <!-- INFO -->
       <div>
         <p class="text-gray-400 uppercase text-sm">Producto</p>
-        <h2 class="text-2xl font-bold mb-2">
-          Jugo de Frutas del Valle
-        </h2>
 
-        <div class="mb-4">
-          <span class="text-2xl font-bold text-emerald-500">S/. 12.00</span>
-          <span class="line-through text-gray-400 ml-2">S/. 23.00</span>
+        <!-- NOMBRE -->
+        <h2 class="text-2xl font-bold mb-2"></h2>
+
+        <!-- PRECIOS -->
+        <div class="mb-4 flex flex-col">
+          <span class="precio text-2xl font-bold text-emerald-500"></span>
+          <span class="precio_old line-through text-gray-400 text-sm"></span>
         </div>
 
-        <div class="space-y-3 mb-4">
-          <button class="w-full bg-emerald-400 hover:bg-emerald-500 text-white py-3 rounded-xl font-semibold">
-            🛒 Añadir al carrito
-          </button>
-
-          <button class="w-full bg-green-100 hover:bg-green-200 text-green-700 py-3 rounded-xl font-semibold">
-            💬 Pedir por WhatsApp
-          </button>
-        </div>
-
+        <!-- DESCRIPCIÓN -->
         <div>
           <h3 class="font-semibold mb-1">Descripción</h3>
-          <p class="text-gray-600 text-sm">
-            Jugo natural elaborado con frutas seleccionadas, ideal para refrescar tu día.
-          </p>
+          <p class="descripcion text-gray-600 text-sm"></p>
         </div>
+
       </div>
 
     </div>
