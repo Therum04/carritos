@@ -41,6 +41,7 @@ echo json_encode([
     'precio' => $producto['precio'],
     'precio_oferta' => $producto['precio_oferta'],
     'descripcion' => $producto['descripcion'],
+    'descuento' => $producto['descuento'],
     'imagen_principal' => $producto['imagen_principal'],
     'galeria' => $galeria
 ]);

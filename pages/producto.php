@@ -1,17 +1,18 @@
 <?php include_once("template/cabecera.php"); ?>
 <style>
-.thumb {
-  width: 64px;
-  height: 64px;
-  flex-shrink: 0;
-}
-.thumb img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 0.75rem;
-  cursor: pointer;
-}
+  .thumb {
+    width: 64px;
+    height: 64px;
+    flex-shrink: 0;
+  }
+
+  .thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0.75rem;
+    cursor: pointer;
+  }
 </style>
 <main class="flex-1 p-8 w-full">
 
@@ -202,7 +203,7 @@
 
           <label
             class="border rounded-lg px-4 py-2 w-full cursor-pointer flex items-center gap-2 hover:bg-gray-50">
-            🖼️ Subir hasta 10 imágenes <span class="text-red-500">*</span>
+            🖼️ Subir hasta 6 imágenes <span class="text-red-500">*</span>
             <input type="file" id="galeria" name="galeria[]"
               accept="image/*" multiple
               class="hidden"
@@ -210,7 +211,7 @@
           </label>
 
           <p class="text-xs text-gray-500 mt-1">
-            Máx 10 por producto.
+            Máx 6 por producto.
           </p>
 
           <div id="galleryPreview"
@@ -242,11 +243,12 @@
 <div id="productoModal"
   class="fixed inset-0 bg-black/60 flex items-center justify-center z-50 hidden">
 
-  <div class="bg-white rounded-2xl w-full max-w-5xl mx-4 relative shadow-xl">
+  <div
+    class="relative bg-white rounded-2xl w-full max-w-5xl mx-4 shadow-xl">
 
     <!-- Cerrar -->
     <button onclick="closeModalDetalle()"
-      class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-2xl z-10">
+      class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-2xl z-20">
       ✕
     </button>
 
@@ -256,31 +258,45 @@
       <div>
 
         <!-- Imagen principal -->
-        <div class="bg-gray-50 rounded-xl p-4 relative">
+        <div class="bg-gray-50 rounded-xl p-4 mb-4 relative">
+
+          <!-- 🔥 DESCUENTO -->
+          <div
+            class="absolute top-[14px] right-[14px] z-10
+         px-3 py-2 rounded-full
+         bg-[#fde7b3]
+         border border-black/10
+         font-extrabold text-[12px]
+         text-black/80
+         shadow-[0_16px_26px_rgba(17,24,39,0.12)]
+         backdrop-blur-md
+         whitespace-nowrap descuento hidden">
+          </div>
+
           <img id="mainImg"
-            src=""
-            class="mx-auto max-h-80 object-contain rounded-xl transition-all">
+            class="mx-auto max-h-80 object-contain rounded-xl">
         </div>
 
-        <!-- Miniaturas -->
-        <div class="flex items-center gap-2 mt-4">
+        <!-- MINIATURAS -->
+        <div class="relative w-full max-w-[720px] mx-auto">
 
           <!-- Flecha izquierda -->
           <button onclick="scrollThumbs(-1)"
-            class="w-8 h-8 rounded-full border flex items-center justify-center hover:bg-gray-100">
+            class="hidden absolute left-0 top-1/2 -translate-y-1/2 z-10
+                   bg-white shadow rounded-full w-8 h-8 flex items-center justify-center">
             ‹
           </button>
 
-          <!-- Carrusel -->
-          <div id="thumbs"
-            class="flex gap-2 overflow-hidden w-[144px]"> <!-- 2 imágenes -->
-
-            <!-- Se cargan por AJAX -->
+          <div class="overflow-hidden">
+            <div id="thumbs"
+              class="flex gap-2 transition-transform duration-300">
+            </div>
           </div>
 
           <!-- Flecha derecha -->
           <button onclick="scrollThumbs(1)"
-            class="w-8 h-8 rounded-full border flex items-center justify-center hover:bg-gray-100">
+            class="hidden absolute right-0 top-1/2 -translate-y-1/2 z-10
+                   bg-white shadow rounded-full w-8 h-8 flex items-center justify-center">
             ›
           </button>
 
@@ -291,16 +307,13 @@
       <div>
         <p class="text-gray-400 uppercase text-sm">Producto</p>
 
-        <!-- NOMBRE -->
         <h2 class="text-2xl font-bold mb-2"></h2>
 
-        <!-- PRECIOS -->
         <div class="mb-4 flex flex-col">
           <span class="precio text-2xl font-bold text-emerald-500"></span>
           <span class="precio_old line-through text-gray-400 text-sm"></span>
         </div>
 
-        <!-- DESCRIPCIÓN -->
         <div>
           <h3 class="font-semibold mb-1">Descripción</h3>
           <p class="descripcion text-gray-600 text-sm"></p>

@@ -67,8 +67,8 @@ function previewGallery(event) {
 	selectedFiles = [];
 
 	// Límite
-	if (files.length > 10) {
-		toastr.error('Solo puedes subir hasta 10 imágenes');
+	if (files.length > 6) {
+		toastr.error('Solo puedes subir hasta 6 imágenes');
 		event.target.value = '';
 		return;
 	}
@@ -134,6 +134,7 @@ function clearPrincipal() {
 }
 let thumbIndex = 0;
 const visibleThumbs = 10;
+const thumbWidth = 72; // 64px + 8px gap
 
 function scrollThumbs(dir) {
 	const thumbs = document.querySelectorAll('#thumbs .thumb');
@@ -146,7 +147,7 @@ function scrollThumbs(dir) {
 		thumbIndex = total - visibleThumbs;
 	}
 
-	const offset = thumbIndex * 72; // 64px + gap
+	const offset = thumbIndex * thumbWidth;
 	document.getElementById('thumbs').style.transform =
 		`translateX(-${offset}px)`;
 }
@@ -237,6 +238,13 @@ $(document).ready(function () {
 				$('#productoModal .precio').text('S/. ' + res.precio);
 				$('#productoModal .precio_old').text('S/. ' + res.precio_oferta);
 				$('#productoModal .descripcion').text(res.descripcion);
+				if (res.descuento && res.descuento !== '0%' && res.descuento !== '') {
+					$('#productoModal .descuento')
+						.text(`-${res.descuento}%`)
+						.removeClass('hidden');
+				} else {
+					$('#productoModal .descuento').addClass('hidden');
+				}
 				// IMAGEN PRINCIPAL
 				$('#mainImg').attr('src', '../img/' + res.imagen_principal);
 				// GALERÍA
@@ -244,7 +252,9 @@ $(document).ready(function () {
 				res.galeria.forEach(img => {
 					thumbs += `
       <div class="thumb">
-        <img src="../img/${img}" onclick="changeMainImg('../img/${img}')">
+		 <img src="../img/${img}"
+          class="w-16 h-16 object-cover rounded-lg cursor-pointer border border-gray-300 hover:border-green-500"
+          onclick="changeMainImg('../img/${img}')">
       </div>
     `;
 				});
