@@ -107,7 +107,7 @@ $(document).ready(function () {
 				var resp = $.parseJSON(response);
 				if (resp.status == 202) {
 
-					var catSelectHTML = '<option value="">Seleccione</option>';
+					var catSelectHTML = '<option value="">Categoria</option>';
 					$.each(resp.message.enumerado, function (index, value) {
 						catSelectHTML += '<option value="' + value.idcategorias + '">' + value.categoria + '</option>';
 					});

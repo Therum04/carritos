@@ -73,7 +73,7 @@
             <select name="idcategorias" id="idcategorias"
               class="w-full border border-gray-300 rounded-lg px-4 py-2 text-gray-900
                  focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 tipoCategoria_list">
-              <option value="">Seleccione</option>
+              <option value="">Categoria</option>
             </select>
           </div>
 
