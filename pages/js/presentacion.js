@@ -84,11 +84,57 @@ function updateQty(id, accion, item) {
 			document.getElementById('cartCount').innerText = data.items;
 		});
 }
+function openModalDetalle() {
+	document.getElementById('productoModal').classList.remove('hidden');
+}
+
+function closeModalDetalle() {
+	document.getElementById('productoModal').classList.add('hidden');
+}
+function changeMainImg(img) {
+	$('#mainImg').attr('src', '../img/' + img);
+}
 $(document).ready(function () {
 	// Renderiza la tabla
-
-
 	load();
+	$(document.body).on('click', '.view-product', function () {
+		var cid = $(this).data('cid');
+		$.ajax({
+			url: '../pages/producto_detalle.php',
+			type: 'POST',
+			data: { idproducto: cid },
+			dataType: 'json',
+			success: function (res) {
+				// TEXTO
+				$('#productoModal h2').text(res.nombre);
+				$('#productoModal .precio').text('S/. ' + res.precio);
+				$('#productoModal .precio_old').text('S/. ' + res.precio_oferta);
+				$('#productoModal .descripcion').text(res.descripcion);
+				if (res.descuento && res.descuento !== '0%' && res.descuento !== '') {
+					$('#productoModal .descuento')
+						.text(`-${res.descuento}%`)
+						.removeClass('hidden');
+				} else {
+					$('#productoModal .descuento').addClass('hidden');
+				}
+				// IMAGEN PRINCIPAL
+				$('#mainImg').attr('src', '../img/' + res.imagen_principal);
+				// GALERÍA
+				let thumbs = '';
+				res.galeria.forEach(img => {
+					thumbs += `
+      <div class="thumb">
+		 <img src="../img/${img}"
+          class="w-16 h-16 object-cover rounded-lg cursor-pointer border border-gray-300 hover:border-green-500"
+          onclick="changeMainImg('../img/${img}')">
+      </div>
+    `;
+				});
+				$('#thumbs').html(thumbs);
 
+				openModalDetalle();
+			}
+		});
+	});
 
 });

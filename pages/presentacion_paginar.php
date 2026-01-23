@@ -95,15 +95,28 @@ if ($action == 'ajax') {
             </div>
 
             <!-- BOTÓN -->
-            <button
-              class="w-full bg-emerald-500 hover:bg-emerald-600
-         text-white py-2 rounded text-xs add-to-cart"
-              data-id="<?= $p['idproductos'] ?>"
-              data-name="<?= htmlspecialchars($p['nombre']) ?>"
-              data-price="<?= $p['precio_oferta'] > 0 ? $p['precio_oferta'] : $p['precio'] ?>"
-              data-image="<?= $p['imagen_principal'] ?>">
-              🛒 Añadir al carrito
-            </button>
+            <div class="flex gap-2">
+
+              <!-- Botón VER -->
+              <button
+                class="flex-1 bg-emerald-500 hover:bg-emerald-600
+           text-white py-2 rounded text-xs view-product"
+                data-cid="<?= $p['idproductos'] ?>">
+                🔍 Ver
+              </button>
+
+              <!-- Botón AÑADIR -->
+              <button
+                class="flex-1 bg-emerald-500 hover:bg-emerald-600
+           text-white py-2 rounded text-xs add-to-cart"
+                data-id="<?= $p['idproductos'] ?>"
+                data-name="<?= htmlspecialchars($p['nombre']) ?>"
+                data-price="<?= $p['precio_oferta'] > 0 ? $p['precio_oferta'] : $p['precio'] ?>"
+                data-image="<?= $p['imagen_principal'] ?>">
+                🛒 Añadir
+              </button>
+
+            </div>
 
           </div>
         </div>
