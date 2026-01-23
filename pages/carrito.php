@@ -9,7 +9,6 @@
 
 
     <?php
-    session_start();
     $carrito  = $_SESSION['carrito'] ?? [];
     $subtotal = 0;
     $items    = 0;

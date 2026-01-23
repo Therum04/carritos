@@ -18,41 +18,41 @@ function load(page) {
 	});
 }
 document.addEventListener('click', function (e) {
+	const btn = e.target.closest('.add-to-cart');
+	if (!btn) return;
 
-	if (!e.target.classList.contains('add-to-cart')) return;
-
-	const btn = e.target;
-
-	const data = new FormData();
-	data.append('id', btn.dataset.id);
-	data.append('nombre', btn.dataset.name);
-	data.append('precio', btn.dataset.price);
-	data.append('imagen', btn.dataset.image);
+	const formData = new FormData();
+	formData.append('id', btn.dataset.id);
+	formData.append('name', btn.dataset.name);
+	formData.append('price', btn.dataset.price);
+	formData.append('image', btn.dataset.image);
 
 	fetch('../pages/add_to_cart.php', {
 		method: 'POST',
-		body: data
+		body: formData
 	})
-		.then(res => res.json())
-		.then(resp => {
-			if (resp.ok) {
-				// contador carrito (campana / badge)
-				document.getElementById('cartCount').textContent = resp.items;
-
-				// feedback visual
-				btn.textContent = '✔ Agregado';
-				btn.classList.remove('bg-emerald-500');
-				btn.classList.add('bg-gray-400');
-
-				setTimeout(() => {
-					btn.textContent = '🛒 Añadir al carrito';
-					btn.classList.remove('bg-gray-400');
-					btn.classList.add('bg-emerald-500');
-				}, 1200);
+		.then(r => r.json())
+		.then(data => {
+			if (data.ok) {
+				updateCartBadge(data.total);
 			}
 		});
 });
+function updateCartBadge(total) {
+	const badge = document.getElementById('cartBadge');
+	if (!badge) return;
 
+	badge.textContent = total;
+
+	if (total > 0) {
+		badge.classList.remove('hidden');
+		// animación simple
+		badge.classList.add('scale-125');
+		setTimeout(() => badge.classList.remove('scale-125'), 150);
+	} else {
+		badge.classList.add('hidden');
+	}
+}
 document.querySelectorAll('.cartItem').forEach(item => {
 	const id = item.dataset.id;
 

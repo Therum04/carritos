@@ -1,27 +1,34 @@
 <?php
 session_start();
+$id = (int)($_POST['id'] ?? 0);
+$name = $_POST['name'] ?? '';
+$price = (float)($_POST['price'] ?? 0);
+$image = $_POST['image'] ?? '';
 
-$id = (int)$_POST['id'];
-$nombre = $_POST['nombre'];
-$precio = (float)$_POST['precio'];
-$imagen = $_POST['imagen'];
-
-if (!isset($_SESSION['carrito'])) {
-  $_SESSION['carrito'] = [];
+if ($id <= 0) {
+  echo json_encode(['ok' => false]);
+  exit;
 }
 
-if (isset($_SESSION['carrito'][$id])) {
-  $_SESSION['carrito'][$id]['cantidad']++;
-} else {
+if (!isset($_SESSION['carrito'][$id])) {
   $_SESSION['carrito'][$id] = [
     'id' => $id,
-    'nombre' => $nombre,
-    'precio' => $precio,
-    'cantidad' => 1,
-    'imagen' => $imagen
+    'nombre' => $name,
+    'precio' => $price,
+    'imagen' => $image,
+    'cantidad' => 1
   ];
+} else {
+  $_SESSION['carrito'][$id]['cantidad']++;
+}
+
+/* 🔥 calcular total de items */
+$total = 0;
+foreach ($_SESSION['carrito'] as $item) {
+  $total += $item['cantidad'];
 }
 
 echo json_encode([
-  'items' => array_sum(array_column($_SESSION['carrito'], 'cantidad'))
+  'ok' => true,
+  'total' => $total
 ]);

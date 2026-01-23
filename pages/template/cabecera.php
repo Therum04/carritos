@@ -4,13 +4,34 @@
 $pagina = basename($_SERVER['PHP_SELF']);
 $active = "bg-teal-50 border border-teal-200 text-teal-600 font-medium";
 $normal = "hover:bg-gray-100";
-session_start();
+/* session_start();
 if (!isset($_SESSION['idusuario'])) {
     header("Location: ../index.php");
 }
 $nombre = $_SESSION['nombres'];
 $rol = $_SESSION['idrol'];
-$idusuario = $_SESSION['idusuario'];
+$idusuario = $_SESSION['idusuario']; */
+
+session_start();
+
+$logueado = false;
+$nombre = null;
+$rol = null;
+$idusuario = null;
+
+if (isset($_SESSION['idusuario'])) {
+    $logueado = true;
+    $nombre = $_SESSION['nombres'];
+    $rol = $_SESSION['idrol'];
+    $idusuario = $_SESSION['idusuario'];
+}
+$cartCount = 0;
+
+if (!empty($_SESSION['carrito'])) {
+    foreach ($_SESSION['carrito'] as $item) {
+        $cartCount += $item['cantidad']; // suma cantidades
+    }
+}
 ?>
 
 <head>
@@ -56,7 +77,9 @@ $idusuario = $_SESSION['idusuario'];
                     <div>
                         <p class="font-semibold">CARRITO DE COMPRAS</p>
                         <span class="text-sm text-gray-500">Dashboard</span><br>
-                        <a href="#" class="d-block"><?php echo $nombre; ?></a>
+                        <?php if ($logueado): ?>
+                            <p><strong>Bienvenido: <?= htmlspecialchars($nombre) ?></strong></p>
+                        <?php endif; ?>
                     </div>
                 </div>
 
@@ -67,43 +90,49 @@ $idusuario = $_SESSION['idusuario'];
                     <?= $pagina == 'presentacion.php' ? $active : $normal ?>">
                         🏠 Inicio
                     </a>
-                    <a href="producto.php"
-                        class="flex items-center gap-3 p-3 rounded-lg
+                    <?php if ($logueado && $rol == 1): ?>
+                        <a href="producto.php"
+                            class="flex items-center gap-3 p-3 rounded-lg
                     <?= $pagina == 'producto.php' ? $active : $normal ?>">
-                        <i class="fa fa-tags"></i> Productos
-                    </a>
-
-                    <a href="categoria.php"
-                        class="flex items-center gap-3 p-3 rounded-lg
+                            <i class="fa fa-tags"></i> Productos
+                        </a>
+                        <a href="categoria.php"
+                            class="flex items-center gap-3 p-3 rounded-lg
                     <?= $pagina == 'categoria.php' ? $active : $normal ?>">
-                        📂 Categorías
-                    </a>
-
-                    <a href="baner.php"
-                        class="flex items-center gap-3 p-3 rounded-lg
+                            📂 Categorías
+                        </a>
+                        <a href="baner.php"
+                            class="flex items-center gap-3 p-3 rounded-lg
                     <?= $pagina == 'baner.php' ? $active : $normal ?>">
-                        🖼 Banner
+                            🖼 Banner
+                        </a>
+                        <a href="perfil.php"
+                            class="flex items-center gap-3 p-3 rounded-lg
+                    <?= $pagina == 'perfil.php' ? $active : $normal ?>">
+                            👤 Perfil
+                        </a>
+                    <?php endif; ?>
+                    <a href="carrito.php"
+                        class="flex items-center gap-2 p-3 rounded-lg
+                   <?= $pagina == 'carrito.php' ? $active : $normal ?>">
+                        🛒 Carrito
+                        <span id="cartBadge"
+                            class="bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded-full
+                   <?= $cartCount > 0 ? '' : 'hidden' ?>">
+                            <?= $cartCount ?>
+                        </span>
+
                     </a>
 
-                    <a href="perfil.php"
-                        class="flex items-center gap-3 p-3 rounded-lg
-                    <?= $pagina == 'perfil.php' ? $active : $normal ?>">
-                        👤 Perfil
-                    </a>
-                    <a href="carrito.php"
-                        class="flex items-center gap-3 p-3 rounded-lg
-                    <?= $pagina == 'carrito.php' ? $active : $normal ?>">
-                        🛒 Carrito
-                    </a>
                 </nav>
             </div>
-
-            <!-- BOTTOM -->
-            <a href="cerrarsesion.php"
-                class="w-full block text-center border border-red-300 text-red-500 p-3 rounded-lg hover:bg-red-50">
-                🚪 Cerrar sesión
-            </a>
-
+            <?php if ($logueado): ?>
+                <!-- BOTTOM -->
+                <a href="cerrarsesion.php"
+                    class="w-full block text-center border border-red-300 text-red-500 p-3 rounded-lg hover:bg-red-50">
+                    🚪 Cerrar sesión
+                </a>
+            <?php endif; ?>
         </aside>
 
 
