@@ -1,8 +1,9 @@
 
 function load(page) {
-	var query = null;
+	var query = $("#q").val();
+	var idcategorias = $("#idcategorias").val();
 	var per_page = 10;
-	var parametros = { "action": "ajax", "page": page, 'query': query, 'per_page': per_page };
+	var parametros = { "action": "ajax", "page": page, query: query, idcategorias: idcategorias, 'per_page': per_page };
 	$("#loader").fadeIn('slow');
 	$.ajax({
 		method: 'POST',
@@ -97,6 +98,26 @@ function changeMainImg(img) {
 $(document).ready(function () {
 	// Renderiza la tabla
 	load();
+	function getCategoria() {
+		$.ajax({
+			url: '../admin/classes/Categoria.php',
+			method: 'POST',
+			data: { GET_CATEGORIAS: 1 },
+			success: function (response) {
+				var resp = $.parseJSON(response);
+				if (resp.status == 202) {
+
+					var catSelectHTML = '<option value="">Seleccione</option>';
+					$.each(resp.message.enumerado, function (index, value) {
+						catSelectHTML += '<option value="' + value.idcategorias + '">' + value.categoria + '</option>';
+					});
+					$(".tipoCategoria_list").html(catSelectHTML);
+
+				}
+			}
+		});
+	}
+	getCategoria();
 	$(document.body).on('click', '.view-product', function () {
 		var cid = $(this).data('cid');
 		$.ajax({

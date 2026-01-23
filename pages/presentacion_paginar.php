@@ -8,6 +8,7 @@ $action = $_REQUEST['action'] ?? '';
 if ($action == 'ajax') {
 
   $query = mysqli_real_escape_string($con, trim($_REQUEST['query'] ?? ''));
+  $idcategorias = mysqli_real_escape_string($con, trim($_REQUEST['idcategorias'] ?? ''));
 
   $page = (int)($_REQUEST['page'] ?? 1);
   $per_page = (int)($_REQUEST['per_page'] ?? 8);
@@ -15,7 +16,9 @@ if ($action == 'ajax') {
   $offset = ($page - 1) * $per_page;
 
   $where = "nombre LIKE '%$query%'";
-
+if (!empty($idcategorias)) {
+  $where .= " AND idcategorias = '$idcategorias'";
+}
   include 'pagination.php';
 
   $count = mysqli_query($con, "SELECT COUNT(*) AS numrows FROM productos WHERE $where");

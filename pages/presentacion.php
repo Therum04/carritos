@@ -59,7 +59,56 @@
 
     </div>
     <br>
+    <div class="bg-white p-6 rounded-xl shadow mb-6">
+
+      <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4">
+
+        <!-- TÍTULO -->
+
+
+        <!-- BUSCADOR + BOTONES -->
+        <div class="flex flex-col md:flex-row gap-3 w-full lg:w-auto">
+          <!-- INPUT -->
+          <div class="md:w-64">
+            <select name="idcategorias" id="idcategorias"
+              class="w-full border border-gray-300 rounded-lg px-4 py-2 text-gray-900
+                 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 tipoCategoria_list">
+              <option value="">Seleccione</option>
+            </select>
+          </div>
+
+          <!-- INPUT -->
+          <div class="md:w-64">
+            <input
+              type="text"
+              name="q"
+              id="q"
+              maxlength="50"
+              placeholder="Buscar categoría..."
+              class="w-full border border-gray-300 rounded-lg px-4 py-2 text-gray-900
+                 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+          </div>
+
+          <!-- BOTÓN BUSCAR -->
+          <button
+            type="button"
+            onclick="load(1);"
+            class="bg-teal-500 hover:bg-teal-600 text-white px-5 py-2 rounded-lg
+               text-sm flex items-center justify-center gap-2 transition shadow">
+            <i class="fas fa-search"></i>
+            Buscar
+          </button>
+
+
+
+        </div>
+
+      </div>
+    </div>
     <div class="col-md-12">
+
+
+
       <div id="loader"></div><!-- Carga de datos ajax aqui -->
       <div id="resultados"></div><!-- Carga de datos ajax aqui -->
       <div class='outer_div'></div><!-- Carga de datos ajax aqui -->
