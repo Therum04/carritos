@@ -4,6 +4,13 @@
 $pagina = basename($_SERVER['PHP_SELF']);
 $active = "bg-teal-50 border border-teal-200 text-teal-600 font-medium";
 $normal = "hover:bg-gray-100";
+session_start();
+if (!isset($_SESSION['idusuario'])) {
+    header("Location: ../index.php");
+}
+$nombre = $_SESSION['nombres'];
+$rol = $_SESSION['idrol'];
+$idusuario = $_SESSION['idusuario'];
 ?>
 
 <head>
@@ -48,7 +55,8 @@ $normal = "hover:bg-gray-100";
                     </div>
                     <div>
                         <p class="font-semibold">CARRITO DE COMPRAS</p>
-                        <span class="text-sm text-gray-500">Dashboard</span>
+                        <span class="text-sm text-gray-500">Dashboard</span><br>
+                        <a href="#" class="d-block"><?php echo $nombre; ?></a>
                     </div>
                 </div>
 
@@ -91,9 +99,10 @@ $normal = "hover:bg-gray-100";
             </div>
 
             <!-- BOTTOM -->
-            <button class="w-full border border-red-300 text-red-500 p-3 rounded-lg hover:bg-red-50">
+            <a href="cerrarsesion.php"
+                class="w-full block text-center border border-red-300 text-red-500 p-3 rounded-lg hover:bg-red-50">
                 🚪 Cerrar sesión
-            </button>
+            </a>
 
         </aside>
 
