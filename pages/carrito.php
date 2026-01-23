@@ -78,8 +78,9 @@
                                 class="w-12 text-center qty-input">
                             <button class="px-3 qty-inc">+</button>
                         </div>
-
-                        <button class="text-sm text-red-500 remove-item">
+                        <button
+                            class="text-sm text-red-500 remove-item"
+                            data-id="<?= $item['id'] ?>">
                             Quitar
                         </button>
                     </div>
