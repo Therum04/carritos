@@ -28,7 +28,7 @@ if ($_POST) {
             $errormsg = "<center>Contraseña incorrecta</center>";
         }
     } else {
-        $errormsg = "<strong>Errror:</strong> Usuario y o contraseña incorrecta <strong> ";
+        $errormsg = "Errror: Usuario y o contraseña incorrecta ";
     }
 }
 ?>
@@ -39,8 +39,10 @@ if ($_POST) {
     <meta charset="UTF-8">
     <title>Login | Sistema</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Tailwind CDN -->
+
+    <!-- Tailwind -->
     <script src="pages/css/tailwind.min.css"></script>
+
     <!-- Fuente -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
@@ -51,31 +53,43 @@ if ($_POST) {
     </style>
 </head>
 
-<body class="min-h-screen flex items-center justify-center bg-slate-100">
+<body class="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-100 to-slate-200">
 
-    <!-- Card -->
-    <div class="w-full max-w-md bg-white rounded-2xl shadow-xl p-8">
+    <div class="w-full max-w-md bg-white rounded-3xl shadow-2xl p-8 relative overflow-hidden">
 
-        <!-- Logo / Título -->
-        <div class="text-center mb-8">
-            <div class="mx-auto w-14 h-14 bg-cyan-100 rounded-xl 
-                  flex items-center justify-center mb-4 text-cyan-600 text-2xl">
-                🔐
+        <!-- Decoración -->
+        <div class="absolute -top-20 -right-20 w-40 h-40 bg-cyan-100 rounded-full"></div>
+        <div class="absolute -bottom-20 -left-20 w-40 h-40 bg-cyan-50 rounded-full"></div>
+
+        <!-- Header -->
+        <div class="relative text-center mb-8">
+            <div class="mx-auto w-16 h-16 bg-cyan-100 rounded-2xl 
+                  flex items-center justify-center mb-4 
+                  text-cyan-600 text-3xl shadow">
+                🛒
             </div>
-            <h1 class="text-3xl font-bold text-slate-800">Iniciar Sesión</h1>
+            <h1 class="text-3xl font-bold text-slate-800">Bienvenido</h1>
             <p class="text-slate-500 text-sm mt-2">
-                Accede a tu panel de control
+                Ingresa tus credenciales para continuar
             </p>
         </div>
 
-        <!-- Formulario -->
-        <form method="POST" autocomplete="off" novalidate action="<?php echo $_SERVER['PHP_SELF']; ?>" class="space-y-5">
+        <!-- ALERTA ERROR -->
+        <?php if (!empty($errormsg)): ?>
+            <div class="mb-5 bg-red-50 border border-red-200 text-red-700 
+                  text-sm rounded-xl p-3 text-center animate-pulse">
+                <?= htmlspecialchars($errormsg) ?>
+            </div>
+        <?php endif; ?>
+
+        <!-- Form -->
+        <form method="POST" autocomplete="off" novalidate class="space-y-5">
 
             <!-- Usuario -->
             <div>
-                <label class="text-slate-600 text-sm mb-1 block">Usuario</label>
-                <div class="relative">
-                    <span class="absolute inset-y-0 left-3 flex items-center text-slate-400">
+                <label class="text-slate-600 text-sm mb-1 block">Email / Usuario</label>
+                <div class="relative group">
+                    <span class="absolute inset-y-0 left-3 flex items-center text-slate-400 group-focus-within:text-cyan-600">
                         👤
                     </span>
                     <input type="text" name="usuario" required
@@ -84,52 +98,71 @@ if ($_POST) {
                    border border-slate-300 
                    focus:outline-none focus:ring-2 
                    focus:ring-cyan-500/40 focus:border-cyan-500
-                   transition"
-                        placeholder="Ingrese su usuario">
+                   transition-all"
+                        placeholder="correo@ejemplo.com">
                 </div>
             </div>
 
             <!-- Contraseña -->
             <div>
                 <label class="text-slate-600 text-sm mb-1 block">Contraseña</label>
-                <div class="relative">
-                    <span class="absolute inset-y-0 left-3 flex items-center text-slate-400">
+                <div class="relative group">
+                    <span class="absolute inset-y-0 left-3 flex items-center text-slate-400 group-focus-within:text-cyan-600">
                         🔑
                     </span>
-                    <input type="password" name="contrasena" required
-                        class="w-full pl-10 pr-4 py-3 rounded-xl 
+
+                    <input id="password" type="password" name="contrasena" required
+                        class="w-full pl-10 pr-12 py-3 rounded-xl 
                    bg-slate-50 text-slate-800 
                    border border-slate-300 
                    focus:outline-none focus:ring-2 
                    focus:ring-cyan-500/40 focus:border-cyan-500
-                   transition"
+                   transition-all"
                         placeholder="••••••••">
+
+                    <!-- Toggle -->
+                    <button type="button" onclick="togglePassword()"
+                        class="absolute inset-y-0 right-3 flex items-center text-slate-400 hover:text-cyan-600">
+                        👁️
+                    </button>
                 </div>
-            </div>
-
-            <!-- Opciones -->
-            <div class="flex items-center justify-between text-sm">
-
-                <a href="#" class="text-cyan-600 hover:text-cyan-700 font-medium transition">
-                    ¿Olvidaste tu contraseña?
-                </a>
             </div>
 
             <!-- Botón -->
             <button type="submit"
-                class="w-full bg-cyan-600 hover:bg-cyan-700 
+                class="w-full bg-gradient-to-r from-cyan-600 to-cyan-500 
+               hover:from-cyan-700 hover:to-cyan-600
                text-white font-semibold py-3 rounded-xl 
                transition-all duration-300 
-               shadow-md hover:shadow-lg">
-                Ingresar
+               shadow-lg hover:shadow-xl
+               active:scale-95">
+                🔓 Ingresar
             </button>
-            <div class="form-group">
-                <label class="small mb-1 text-red-600">
-                    <?php if (isset($errormsg)) {
-                        echo $errormsg;
-                    } ?>
-                </label>
+
+            <!-- Links -->
+            <div class="text-center text-base text-slate-600 mt-4">
+                <p class="mb-2">
+                    ¿No tienes cuenta?
+                </p>
+
+                <a href="registrar.php"
+                    class="inline-block w-full bg-cyan-50 border border-cyan-200 
+                    text-cyan-700 font-bold py-3 rounded-xl 
+                    hover:bg-cyan-100 transition shadow-sm">
+                    📝 Crear cuenta GRATIS
+                </a>
             </div>
+
+            <div class="text-center mt-5">
+                <a href="pages/presentacion.php"
+                    class="inline-block w-full bg-slate-50 border border-slate-200 
+                    text-slate-600 font-semibold py-3 rounded-xl 
+                    hover:bg-slate-100 transition">
+                    🛒 Ver productos sin iniciar sesión
+                </a>
+            </div>
+
+
         </form>
 
         <!-- Footer -->
@@ -138,6 +171,14 @@ if ($_POST) {
         </p>
 
     </div>
+
+    <!-- JS -->
+    <script>
+        function togglePassword() {
+            const input = document.getElementById('password');
+            input.type = input.type === 'password' ? 'text' : 'password';
+        }
+    </script>
 
 </body>
 

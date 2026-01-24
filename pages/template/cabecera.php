@@ -132,6 +132,12 @@ if (!empty($_SESSION['carrito'])) {
                     class="w-full block text-center border border-red-300 text-red-500 p-3 rounded-lg hover:bg-red-50">
                     🚪 Cerrar sesión
                 </a>
+            <?php else: ?>
+                <!-- REGISTRAR CUENTA -->
+                <a href="../index.php"
+                    class="w-full block text-center border border-emerald-300 text-emerald-600 p-3 rounded-lg hover:bg-emerald-50">
+                    📝 Registrar cuenta
+                </a>
             <?php endif; ?>
         </aside>
 

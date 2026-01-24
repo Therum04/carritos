@@ -9,6 +9,12 @@
 
 
     <?php
+    if (isset($_SESSION['idusuario'])) {
+        $logueado = true;
+        $nombre = $_SESSION['nombres'];
+        $rol = $_SESSION['idrol'];
+        $idusuario = $_SESSION['idusuario'];
+    }
     $carrito  = $_SESSION['carrito'] ?? [];
     $subtotal = 0;
     $items    = 0;
@@ -108,11 +114,17 @@
                     <span>Total</span>
                     <span id="total">S/. <?= number_format($subtotal, 2) ?></span>
                 </div>
-
-                <button
-                    class="w-full mt-4 bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-semibold py-3 rounded-xl">
-                    Finalizar compra
-                </button>
+                <?php if ($logueado): ?>
+                    <button
+                        class="w-full mt-4 bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-semibold py-3 rounded-xl">
+                        Finalizar compra
+                    </button>
+                <?php else: ?>
+                    <a href="../index.php"
+                        class="w-full block text-center border border-emerald-300 text-emerald-600 p-3 rounded-lg hover:bg-emerald-50">
+                        📝 Registrar cuenta
+                    </a>
+                <?php endif; ?>
             </div>
         </div>
 
