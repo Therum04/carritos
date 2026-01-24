@@ -57,7 +57,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <title>Registrar cuenta</title>
-   <script src="pages/css/tailwind.min.css"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="pages/css/tailwind.min.css"></script>
 </head>
 
 <body class="bg-gray-100 min-h-screen flex items-center justify-center">
