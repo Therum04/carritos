@@ -45,6 +45,10 @@ class Categoria
 	{
 		if ($cid != null) {
 
+			$q = $this->con->query("SELECT * FROM productos WHERE idcategorias = '$cid' LIMIT 1");
+			if ($q->num_rows > 0) {
+				return ['status' => 303, 'message' => 'No se puede eliminar el registro existe una relación con productos'];
+			}
 			$q = $this->con->query("DELETE FROM categorias WHERE idcategorias = '$cid'")  or die($this->con->error);
 			if ($q) {
 				return ['status' => 202, 'message' => 'El registro se elimino correctamente'];
@@ -68,7 +72,6 @@ class Categoria
 		}
 		return ['status' => 202, 'message' => $_DATA];
 	}
-	
 }
 
 if (isset($_POST['add_update'])) {
@@ -96,4 +99,3 @@ if (isset($_POST['GET_CATEGORIAS'])) {
 	echo json_encode($p->getCategorias());
 	exit();
 }
-

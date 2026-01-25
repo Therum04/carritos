@@ -25,7 +25,7 @@ if ($_POST) {
             //$_SESSION['idempresa'] = $row['idempresa'];
             echo "<script language='javascript'>window.location='pages/principal.php'</script>;";
         } else {
-            $errormsg = "<center>Contraseña incorrecta</center>";
+            $errormsg = "Contraseña incorrecta";
         }
     } else {
         $errormsg = "Errror: Usuario y o contraseña incorrecta ";

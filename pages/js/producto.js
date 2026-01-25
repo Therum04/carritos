@@ -226,6 +226,7 @@ $(document).ready(function () {
 		document.getElementById('deleteModal').classList.remove('hidden');
 	});
 	$(document.body).on('click', '.ver-detalle', function () {
+		debugger
 		var cid = $(this).data('cid');
 		$.ajax({
 			url: '../pages/producto_detalle.php',

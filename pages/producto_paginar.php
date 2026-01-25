@@ -8,8 +8,8 @@ if ($action == 'ajax') {
 
   $query = mysqli_real_escape_string($con, trim((strip_tags($_REQUEST['query'], ENT_QUOTES))));
 
-  $tables = " productos c";
-  $campos = " c.idproductos, c.idcategorias,c.nombre,c.descripcion, c.precio, c.precio_oferta, c.descuento, c.stock, c.imagen_principal";
+  $tables = " productos c left join categorias a on a.idcategorias=c.idcategorias";
+  $campos = " c.idproductos, c.idcategorias,c.nombre,c.descripcion, c.precio, c.precio_oferta, c.descuento, c.stock, c.imagen_principal, a.categoria";
   $sWhere = "  (c.nombre LIKE '%" . $query . "%')";
   $sWhere .= " ORDER BY c.idproductos desc";
   include 'pagination.php';
@@ -36,6 +36,7 @@ if ($action == 'ajax') {
           <tr>
             <th class="px-4 py-2 text-left font-semibold uppercase">N°</th>
             <th class="px-4 py-2 text-left font-semibold uppercase">Producto</th>
+            <th class="px-4 py-2 text-left font-semibold uppercase">Categoria</th>
             <th class="px-4 py-2 text-left font-semibold uppercase">Precio</th>
             <th class="px-4 py-2 text-left font-semibold uppercase">Stock</th>
             <th class="px-4 py-2 text-center font-semibold uppercase">Acción</th>
@@ -54,11 +55,13 @@ if ($action == 'ajax') {
             $descuento = $row['descuento'];
             $stock = $row['stock'];
             $imagen_principal = $row['imagen_principal'];
+            $categoria = $row['categoria'];
             $finales++;
           ?>
             <tr>
               <td class="px-4 py-2"><?php echo $finales; ?></td>
               <td class="px-4 py-2"><?php echo $nombre; ?></td>
+              <td class="px-4 py-2"><?php echo $categoria; ?></td>
               <td class="px-4 py-2"><?php echo $precio; ?></td>
               <td class="px-4 py-2"><?php echo $stock; ?></td>
               <td class="px-4 py-2 text-center flex justify-center gap-2">
@@ -83,7 +86,7 @@ if ($action == 'ajax') {
             </tr>
           <?php } ?>
           <tr class="bg-gray-50 text-sm text-gray-600">
-            <td colspan="5" class="px-4 py-3">
+            <td colspan="6" class="px-4 py-3">
               <?php
               $inicios = $offset + 1;
               $finales += $inicios - 1;

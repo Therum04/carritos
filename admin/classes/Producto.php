@@ -95,10 +95,10 @@ class Producto
         ========================== */
 		if ($galeria && count($galeria['name']) > 0) {
 
-			if (count($galeria['name']) > 10) {
+			if (count($galeria['name']) > 6) {
 				echo json_encode([
 					'status' => 303,
-					'message' => 'Máximo 10 imágenes permitidas'
+					'message' => 'Máximo 6 imágenes permitidas'
 				]);
 				exit;
 			}
