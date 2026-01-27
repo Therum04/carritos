@@ -1,4 +1,6 @@
 <?php include_once("template/cabecera.php"); ?>
+<?php include 'config_paypal.php'; ?>
+<script src="https://www.paypal.com/sdk/js?client-id=<?= PAYPAL_CLIENT_ID ?>&currency=USD"></script>
 <main class="flex-1 p-8 w-full">
 
     <!-- HEADER -->
@@ -117,7 +119,7 @@
                 <?php if ($logueado): ?>
                     <button
                         class="w-full mt-4 bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-semibold py-3 rounded-xl">
-                        Finalizar compra
+                        <div id="paypal-button-container" class="mt-4"></div>
                     </button>
                 <?php else: ?>
                     <a href="../index.php"
@@ -139,3 +141,51 @@
 
 <?php include_once("template/pie.php"); ?>
 <script type="text/javascript" src="./js/carrito.js"></script>
+<script>
+    paypal.Buttons({
+
+        createOrder: function(data, actions) {
+
+            // 👉 Tomar total ACTUAL del DOM
+            let totalText = document.getElementById('total').innerText;
+            let total = totalText.replace('S/.', '').trim();
+
+            return fetch('paypal_create_order.php', {
+                    method: 'post',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        total: total
+                    })
+                })
+                .then(res => res.json())
+                .then(data => data.id);
+        },
+
+        onApprove: function(data, actions) {
+            return fetch('paypal_capture_order.php', {
+                    method: 'post',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        orderID: data.orderID
+                    })
+                })
+                .then(res => res.json())
+                .then(details => {
+                    alert('✅ Pago completado por ' + details.payer.name.given_name);
+
+                    // 👉 Aquí puedes guardar venta en DB si quieres
+                    window.location.href = "gracias.php";
+                });
+        },
+
+        onError: function(err) {
+            console.error('PayPal error:', err);
+            alert('❌ Error con PayPal. Intenta nuevamente.');
+        }
+
+    }).render('#paypal-button-container');
+</script>
