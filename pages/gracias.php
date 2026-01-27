@@ -34,7 +34,7 @@ unset($_SESSION['cart_count']);
             </div>
             <div class="flex justify-between font-semibold border-t pt-2">
                 <span>Total pagado:</span>
-                <span>S/. <?= number_format($pago['total'], 2) ?></span>
+                <span>$ <?= number_format($pago['total'], 2) ?></span>
             </div>
         </div>
         <!-- BOTONES -->
