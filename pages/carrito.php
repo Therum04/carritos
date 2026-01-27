@@ -66,7 +66,7 @@
                         </h3>
 
                         <div class="flex items-center gap-2 text-sm text-gray-500 mt-1">
-                            <span>S/. <?= number_format($item['precio'], 2) ?> c/u</span>
+                            <span>$ <?= number_format($item['precio'], 2) ?> c/u</span>
                             <span class="w-1 h-1 bg-gray-400 rounded-full"></span>
                             <span>ID: <?= $item['id'] ?></span>
                         </div>
@@ -75,7 +75,7 @@
                     <!-- RIGHT -->
                     <div class="flex flex-col items-end gap-3">
                         <div class="text-lg font-semibold itemSubtotal">
-                            S/. <?= number_format($sub, 2) ?>
+                            $ <?= number_format($sub, 2) ?>
                         </div>
 
                         <div class="flex items-center border rounded-lg overflow-hidden">
@@ -104,7 +104,7 @@
 
                 <div class="flex justify-between text-gray-600">
                     <span>Subtotal</span>
-                    <span id="subtotal">S/. <?= number_format($subtotal, 2) ?></span>
+                    <span id="subtotal">$ <?= number_format($subtotal, 2) ?></span>
                 </div>
 
                 <div class="flex justify-between text-gray-600">
@@ -114,19 +114,21 @@
 
                 <div class="flex justify-between text-lg font-bold pt-2 border-t">
                     <span>Total</span>
-                    <span id="total">S/. <?= number_format($subtotal, 2) ?></span>
+                    <span id="total">$ <?= number_format($subtotal, 2) ?></span>
                 </div>
                 <?php if ($logueado): ?>
-                    <button
-                        class="w-full mt-4 bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-semibold py-3 rounded-xl">
-                        <div id="paypal-button-container" class="mt-4"></div>
-                    </button>
+                    <div class="w-full mt-4">
+                        <div id="paypal-button-container"
+                            class="w-full bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-semibold py-3 rounded-xl text-center">
+                        </div>
+                    </div>
                 <?php else: ?>
                     <a href="../index.php"
                         class="w-full block text-center border border-emerald-300 text-emerald-600 p-3 rounded-lg hover:bg-emerald-50">
                         📝 Registrar cuenta
                     </a>
                 <?php endif; ?>
+
             </div>
         </div>
 

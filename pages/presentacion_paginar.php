@@ -78,14 +78,14 @@ if (!empty($idcategorias)) {
             <!-- PRECIOS -->
             <?php if ($p['precio_oferta'] > 0) { ?>
               <div class="text-lg font-bold text-emerald-600">
-                S/ <?= number_format($p['precio_oferta'], 2) ?>
+                $ <?= number_format($p['precio_oferta'], 2) ?>
               </div>
               <div class="text-sm text-gray-400 line-through">
-                S/ <?= number_format($p['precio'], 2) ?>
+                USD <?= number_format($p['precio'], 2) ?>
               </div>
             <?php } else { ?>
               <div class="text-lg font-bold">
-                S/ <?= number_format($p['precio'], 2) ?>
+                $ <?= number_format($p['precio'], 2) ?>
               </div>
             <?php } ?>
 
