@@ -50,4 +50,18 @@ $(document).ready(function () {
            
         }
     });
+        $('#form_baner').validate({
+        rules: {
+            imagen: {
+                required: true,
+                
+            },
+        },
+        messages: {
+            imagen: {
+                required: "Campo obligatorio",
+               
+            },
+        }
+    });
 });
