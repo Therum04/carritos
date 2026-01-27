@@ -15,18 +15,19 @@
         class="flex transition-transform duration-500 ease-out">
 
         <?php
-        $banners = [
-          "img/21797.png",
-          "img/21798.png",
-          "img/81525.png",
-          "img/Screenshot_20260115-094643.png",
-          "img/unnamed.jpg"
-        ];
-        foreach ($banners as $img) { ?>
+        include "../admin/classes/Database.php";
+        $db = new Database();
+        $con = $db->connect();
+        $sql = "SELECT imagen FROM banners WHERE estado = 1 ORDER BY id DESC";
+        $resultado = mysqli_query($con, $sql);
+        $totalBanners = mysqli_num_rows($resultado);
+        while ($row = mysqli_fetch_assoc($resultado)) {
+          $img = $row['imagen'];
+        ?>
           <article class="min-w-full px-2">
             <div class="rounded-xl overflow-hidden shadow">
               <img
-                src="<?= $img ?>"
+                src="../img/<?= htmlspecialchars($img) ?>"
                 alt="Banner"
                 class="w-full h-[180px] sm:h-[220px] md:h-[260px] object-cover">
             </div>
@@ -37,20 +38,20 @@
       <!-- BOTÓN PREV -->
       <button id="promoPrev"
         class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white
-             shadow rounded-full w-9 h-9 flex items-center justify-center text-xl">
+           shadow rounded-full w-9 h-9 flex items-center justify-center text-xl">
         ‹
       </button>
 
       <!-- BOTÓN NEXT -->
       <button id="promoNext"
         class="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white
-             shadow rounded-full w-9 h-9 flex items-center justify-center text-xl">
+           shadow rounded-full w-9 h-9 flex items-center justify-center text-xl">
         ›
       </button>
 
       <!-- DOTS -->
       <div id="promoDots" class="flex justify-center gap-2 mt-3">
-        <?php for ($i = 0; $i < count($banners); $i++) { ?>
+        <?php for ($i = 0; $i < $totalBanners; $i++) { ?>
           <button
             class="w-2.5 h-2.5 rounded-full <?= $i == 0 ? 'bg-teal-500' : 'bg-gray-300' ?>">
           </button>
@@ -58,6 +59,7 @@
       </div>
 
     </div>
+
     <br>
     <div class="bg-white p-6 rounded-xl shadow mb-6">
 
