@@ -23,7 +23,7 @@ if ($_POST) {
             $_SESSION['nombres'] = $row['nombres'];
             $_SESSION['idrol'] = $row['idrol'];
             //$_SESSION['idempresa'] = $row['idempresa'];
-            echo "<script language='javascript'>window.location='pages/principal.php'</script>;";
+            echo "<script language='javascript'>window.location='pages/presentacion.php'</script>;";
         } else {
             $errormsg = "Contraseña incorrecta";
         }
