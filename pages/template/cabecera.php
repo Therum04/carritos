@@ -112,6 +112,16 @@ if (!empty($_SESSION['carrito'])) {
                             👤 Perfil
                         </a>
                     <?php endif; ?>
+                    <?php if ($logueado && ($rol == 1 || $rol == 2 || $rol == 3)): ?>
+                        <a href="pedidos.php"
+                            class="flex items-center gap-3 p-3 rounded-lg
+                    <?= $pagina == 'pedidos.php' ? $active : $normal ?>">
+                            <i class="fas fa-clipboard-list"></i> </i> Pedidos
+                        </a>
+
+
+
+                    <?php endif; ?>
                     <a href="carrito.php"
                         class="flex items-center gap-2 p-3 rounded-lg
                    <?= $pagina == 'carrito.php' ? $active : $normal ?>">

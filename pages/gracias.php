@@ -43,7 +43,7 @@ unset($_SESSION['cart_count']);
                 class="block w-full bg-emerald-500 hover:bg-emerald-600 text-white py-3 rounded-xl font-semibold">
                 🛍️ Seguir comprando
             </a>
-            <a href="#"
+            <a href="pedidos.php"
                 class="block w-full border border-gray-300 text-gray-700 py-3 rounded-xl hover:bg-gray-50">
                 📦 Ver mis pedidos
             </a>
