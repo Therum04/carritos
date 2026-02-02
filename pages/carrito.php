@@ -118,7 +118,7 @@
                 </div>
                 <?php if ($logueado): ?>
                     <div class="w-full mt-4">
-                        <div id="paypal-button-container"
+                        <div id="paypal-button-container" style="position: relative;  z-index: 1;"
                             class="w-full bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-semibold py-3 rounded-xl text-center">
                         </div>
                     </div>
@@ -186,7 +186,7 @@
 
         onError: function(err) {
             console.error('PayPal error:', err);
-            alert('❌ Error con PayPal. Intenta nuevamente.');
+           // alert('❌ Error con PayPal. Intenta nuevamente.');
         }
 
     }).render('#paypal-button-container');
