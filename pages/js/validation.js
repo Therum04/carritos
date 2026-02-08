@@ -14,7 +14,7 @@ $(document).ready(function () {
         }
     });
     $('#productoForm').validate({
-       
+
         rules: {
             nombre: {
                 required: true,
@@ -30,7 +30,7 @@ $(document).ready(function () {
             precio: {
                 required: true,
             },
-           
+
         },
         messages: {
             nombre: {
@@ -47,21 +47,83 @@ $(document).ready(function () {
             precio: {
                 required: "Campo obligatorio"
             },
-           
+
         }
     });
-        $('#form_baner').validate({
+    $('#form_baner').validate({
         rules: {
             imagen: {
                 required: true,
-                
+
             },
         },
         messages: {
             imagen: {
                 required: "Campo obligatorio",
-               
+
             },
         }
     });
+    $('#form_usuario').validate({
+        rules: {
+            nombres: {
+                required: true,
+            },
+            apellidos: {
+                required: true,
+            },
+            email: {
+                required: true,
+            },
+            clave: {
+                required: true,
+            },
+            idrol: {
+                required: true,
+            },
+            lugar_entraga: {
+                required: true,
+            },
+        },
+        messages: {
+            nombres: {
+                required: "Nombres es obligatorio",
+            },
+            apellidos: {
+                required: "Apellidos es obligatorio",
+            },
+            email: {
+                required: "Email es obligatorio",
+            },
+            clave: {
+                required: "Clave es obligatorio",
+            },
+            idrol: {
+                required: "Rol es obligatorio",
+            },
+            lugar_entraga: {
+                required: "Lugar de entrega es obligatorio",
+            },
+        }
+    });
+
+    $('#form_newclave').validate({
+        rules: {
+            newclave: {
+                required: true,
+            },
+            confclave: {
+                required: true,
+            },
+        },
+        messages: {
+            newclave: {
+                required: "Campo obligatorio",
+            },
+            confclave: {
+                required: "Campo obligatorio",
+            },
+        }
+    });
+
 });
