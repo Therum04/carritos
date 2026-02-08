@@ -1,5 +1,5 @@
 <?php include_once("template/cabecera.php"); ?>
-<main class="flex-1 p-8 w-full">
+<main class="flex-2 p-5 w-full">
 
     <!-- HEADER -->
     <div class="flex items-center justify-between mb-4 md:hidden">
